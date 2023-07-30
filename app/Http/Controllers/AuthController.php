@@ -48,7 +48,7 @@ class AuthController extends Controller{
             'last_name' => $request->last_name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'user_type_id' => 2,
+            'user_type' => 2,
         ]);
 
         $token = Auth::login($user);
