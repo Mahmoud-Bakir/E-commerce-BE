@@ -12,6 +12,7 @@ use App\Http\Controllers\ProductController;
       Route::post('/login',[AuthController::class,'login']);
       Route::post('/logout',[AuthController::class,'logout']);
       Route::post('/add',[ProductController::class,'storeProducts']);
+      Route::get('/get',[ProductController::class,'getAllProducts']);
 
 
 ?>

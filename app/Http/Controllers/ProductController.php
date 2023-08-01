@@ -14,7 +14,6 @@ class ProductController extends Controller
     }
 
     public function storeProducts(Request $request)
-    
     {
         $imagePath = 'C:\Users\Mahmoud Bakir\Desktop\SEF_2023\Assignments\E-commerce\E-commerce-FE\assets\p1.png';
 
@@ -27,17 +26,20 @@ class ProductController extends Controller
             'gender' => 'required|numeric',
         ]);
 
-        $image = $request->file('image');
-        $imageData = base64_encode(file_get_contents($image->getRealPath()));
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $image_name = $image->getClientOriginalName();
+            $image->move(public_path('images'), $image_name);
         $product = new Product();
         $product->name = $request->input('name');
         $product->description = $request->input('description');
         $product->price = $request->input('price');
-        $product->image = $imageData;
+        $product->image = $image;
         $product->category = $request->input('category');
         $product->gender = $request->input('gender');
         $product->save();
 
         return response()->json(['message' => 'Product created successfully'], 201);
+        }
     }
 }
